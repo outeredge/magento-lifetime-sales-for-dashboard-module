@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Edge_LifetimeSalesForDashboard>
+            <version>1.0.0</version>
+        </Edge_LifetimeSalesForDashboard>
+    </modules>
+    <global>
+        <blocks>
+            <lifetimesales>
+                <class>Edge_LifetimeSalesForDashboard_Block</class>
+            </lifetimesales>
+        </blocks>
+        <models>
+            <lifetimesales>
+                <class>Edge_LifetimeSalesForDashboard_Model</class>
+            </lifetimesales>
+        </models>
+        <resources>
+            <lifetimesalesfordashboard_setup>
+                <setup>
+                    <module>Edge_LifetimeSalesForDashboard</module>
+                    <class>Mage_Sales_Model_Resource_Setup</class>
+                </setup>
+            </lifetimesalesfordashboard_setup>
+        </resources>
+    </global>
+    <crontab>
+        <jobs>
+            <lifetimesalesfordashboard_report>
+                <schedule>
+                    <cron_expr>0,15,30,45 * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>Edge_LifetimeSalesForDashboard_Model_Report::sendLifetimeSales</model>
+                </run>
+            </lifetimesalesfordashboard_report>
+        </jobs>
+    </crontab>
+</config>
