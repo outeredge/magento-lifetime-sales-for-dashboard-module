@@ -19,6 +19,7 @@ class Edge_LifetimeSalesForDashboard_Model_Report
         }
 
         $data = array(
+            'uid' => $uid,
             'username' => Mage::getStoreConfig('sales/lifetime_sales/username'),
             'password' => Mage::getStoreConfig('sales/lifetime_sales/password'),
             'lifetime_sales' => Mage::getResourceModel('reports/order_collection')->calculateSales()->load()->getFirstItem()->getLifetime()
