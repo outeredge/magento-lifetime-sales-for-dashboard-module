@@ -18,15 +18,18 @@ class Edge_LifetimeSalesForDashboard_Model_Report
             return;
         }
 
+        $username = Mage::getStoreConfig('sales/lifetime_sales/username');
+        $password = Mage::getStoreConfig('sales/lifetime_sales/password');
+
         $data = array(
             'uid' => $uid,
-            'username' => Mage::getStoreConfig('sales/lifetime_sales/username'),
-            'password' => Mage::getStoreConfig('sales/lifetime_sales/password'),
             'lifetime_sales' => Mage::getResourceModel('reports/order_collection')->calculateSales()->load()->getFirstItem()->getLifetime()
         );
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         curl_setopt($ch, CURLOPT_POST, count($data));
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
         curl_exec($ch);
