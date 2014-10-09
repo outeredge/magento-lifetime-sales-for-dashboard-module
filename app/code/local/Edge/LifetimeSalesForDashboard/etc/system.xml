@@ -13,6 +13,7 @@
                     <fields>
                         <enabled translate="label">
                             <label>Enabled</label>
+                            <comment>When enabled this module will anonymously send lifetime sales stats to a specific url.</comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>5</sort_order>
@@ -57,6 +58,15 @@
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                         </password>
+                        <force translate="label">
+                            <label>Push Stats to Server</label>
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>lifetimesales/field_renderer_button</frontend_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </force>
                     </fields>
                 </lifetime_sales>
             </groups>

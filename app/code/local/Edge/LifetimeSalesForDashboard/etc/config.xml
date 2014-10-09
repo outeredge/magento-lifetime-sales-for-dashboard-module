@@ -25,6 +25,17 @@
             </lifetimesalesfordashboard_setup>
         </resources>
     </global>
+    <admin>
+        <routers>
+            <lifetimesales>
+                <use>admin</use>
+                <args>
+                    <module>Edge_LifetimeSalesForDashboard</module>
+                    <frontName>lifetimesales</frontName>
+                </args>
+            </lifetimesales>
+        </routers>
+    </admin>
     <crontab>
         <jobs>
             <lifetimesalesfordashboard_report>
