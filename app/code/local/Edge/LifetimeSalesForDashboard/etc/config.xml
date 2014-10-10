@@ -39,12 +39,8 @@
     <crontab>
         <jobs>
             <lifetimesalesfordashboard_report>
-                <schedule>
-                    <cron_expr>0,15,30,45 * * * *</cron_expr>
-                </schedule>
-                <run>
-                    <model>Edge_LifetimeSalesForDashboard_Model_Report::sendLifetimeSales</model>
-                </run>
+                <schedule><cron_expr>0,15,30,45 * * * *</cron_expr></schedule>
+                <run><model>lifetimesales/report::sendLifetimeSales</model></run>
             </lifetimesalesfordashboard_report>
         </jobs>
     </crontab>
