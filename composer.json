@@ -12,12 +12,6 @@
     "require": {
         "magento-hackathon/magento-composer-installer": "*"
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "git@github.com:outeredge/edge-magento-module-lifetimesalesfordashboard.git"
-        }
-    ],
     "extra": {
         "map": [
             ["app/code/local/Edge/LifetimeSalesForDashboard", "app/code/local/Edge/LifetimeSalesForDashboard"],
