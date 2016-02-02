@@ -27,13 +27,13 @@
     </global>
     <admin>
         <routers>
-            <lifetimesales>
-                <use>admin</use>
+            <adminhtml>
                 <args>
-                    <module>Edge_LifetimeSalesForDashboard</module>
-                    <frontName>lifetimesales</frontName>
+                    <modules>
+                        <Edge_LifetimeSalesForDashboard before="Mage_Adminhtml">Edge_LifetimeSalesForDashboard_Adminhtml</Edge_LifetimeSalesForDashboard>
+                    </modules>
                 </args>
-            </lifetimesales>
+            </adminhtml>
         </routers>
     </admin>
     <crontab>

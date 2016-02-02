@@ -1,8 +1,13 @@
 <?php
 
-class Edge_LifetimeSalesForDashboard_ForceController extends Mage_Adminhtml_Controller_Action
+class Edge_LifetimeSalesForDashboard_Adminhtml_LifetimeSalesForDashboardController extends Mage_Adminhtml_Controller_Action
 {
-    public function indexAction()
+    protected function _isAllowed()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('system/config/sales');
+    }
+    
+    public function forceAction()
     {
         try {
             Mage::getModel('lifetimesales/report')->sendLifetimeSales();

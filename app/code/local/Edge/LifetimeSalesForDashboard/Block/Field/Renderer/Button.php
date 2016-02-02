@@ -5,7 +5,7 @@ class Edge_LifetimeSalesForDashboard_Block_Field_Renderer_Button extends Mage_Ad
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
         $this->setElement($element);
-        $url = $this->getUrl('lifetimesales/force');
+        $url = $this->getUrl('*/lifetimeSalesForDashboard/force');
 
         return $this->getLayout()->createBlock('adminhtml/widget_button')
             ->setType('button')

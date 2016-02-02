@@ -36,4 +36,3 @@ class Edge_LifetimeSalesForDashboard_Model_Report
         curl_close($ch);
     }
 }
-
