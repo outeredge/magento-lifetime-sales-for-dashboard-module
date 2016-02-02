@@ -25,14 +25,22 @@ class Edge_LifetimeSalesForDashboard_Model_Report
             'uid' => $uid,
             'lifetime_sales' => Mage::getResourceModel('reports/order_collection')->calculateSales()->load()->getFirstItem()->getLifetime()
         );
-
+        
         $ch = curl_init();
+        curl_setopt($ch, CURLOPT_FAILONERROR, true);
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
         curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         curl_exec($ch);
+        
+        if(curl_errno($ch)){
+            $error = 'Curl error: ' . curl_error($ch);
+            Mage::getStoreConfig('sales/lifetime_sales/logging') ? Mage::log($error, null, 'dashboard.log') : false;
+            Mage::throwException($error);
+        }
+        
         curl_close($ch);
     }
 }

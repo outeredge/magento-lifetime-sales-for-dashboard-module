@@ -36,6 +36,13 @@
             </adminhtml>
         </routers>
     </admin>
+    <default>
+        <sales>
+            <lifetime_sales>
+                <logging>0</logging>
+            </lifetime_sales>
+        </sales>
+    </default>
     <crontab>
         <jobs>
             <lifetimesalesfordashboard_report>
