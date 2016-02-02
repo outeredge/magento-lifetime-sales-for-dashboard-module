@@ -14,7 +14,7 @@ class Edge_LifetimeSalesForDashboard_Adminhtml_LifetimeSalesForDashboardControll
             Mage::getSingleton('core/session')->addSuccess('Lifetime sales stats were successfully pushed to server.');
         } catch (Exception $e){
             Mage::getSingleton('core/session')->addError($e->getMessage());
-        }        
+        }
         $this->_redirectReferer();
     }
 }
