@@ -38,7 +38,6 @@ class Edge_LifetimeSalesForDashboard_Model_Report
         if(curl_errno($ch)){
             $error = 'Curl error: ' . curl_error($ch);
             Mage::getStoreConfig('sales/lifetime_sales/logging') ? Mage::log($error, null, 'dashboard.log') : false;
-            Mage::throwException($error);
         }
         
         curl_close($ch);
