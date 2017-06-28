@@ -1,21 +1,28 @@
 {
     "name": "outeredge/edge-magento-module-lifetimesalesfordashboard",
-    "type": "magento-module",
-    "description": "Lifetime Sales Module by outer/edge",
-    "license": "MIT",
+    "description": "Magento Lifetimesalesfordashboard Module by outer/edge",
+    "type": "magento2-module",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
     "authors": [
         {
             "name": "outer/edge",
-            "email": "support@outeredgeuk.com"
+            "email": "support@outeredgeuk.com",
+            "homepage": "https://outeredgeuk.com/",
+            "role": "Developer"
         }
     ],
     "require": {
-        "magento-hackathon/magento-composer-installer": "*"
+        "php": "~5.5.0|~5.6.0|~7.0.0"
     },
-    "extra": {
-        "map": [
-            ["app/code/local/Edge/LifetimeSalesForDashboard", "app/code/local/Edge/LifetimeSalesForDashboard"],
-            ["app/etc/modules/Edge_LifetimeSalesForDashboard.xml", "app/etc/modules/Edge_LifetimeSalesForDashboard.xml"]
-        ]
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "OuterEdge\\Lifetimesalesfordashboard\\": ""
+        }
     }
 }
