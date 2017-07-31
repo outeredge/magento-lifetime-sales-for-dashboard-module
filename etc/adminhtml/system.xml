@@ -1,13 +1,10 @@
+<?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
-        <tab id="outeredge" translate="label" sortOrder="2000" class="outeredge-tab">
-            <label>outer/edge</label>
-        </tab>
         <section id="lifetime_sales" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-            <class>separator-top</class>
             <label>Life Time Sales For Dashboad</label>
-            <tab>outerEdge</tab>
-            <resource>OuterEdge_LifetimeSalesForDashboard::sales_configuration</resource>
+            <tab>outeredge</tab>
+            <resource>OuterEdge_LifetimeSalesForDashboard::lifetimeSalesForDashboardSettings</resource>
             <group id="config" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Dashboard Lifetime Sales Configuration</label>
                 <field id="enable" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">

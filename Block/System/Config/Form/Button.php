@@ -5,7 +5,7 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
  
 class Button extends \Magento\Config\Block\System\Config\Form\Field
 {
-     const BUTTON_TEMPLATE = 'system/config/button/button.phtml';
+     const BUTTON_TEMPLATE = 'system/config/form/button.phtml';
  
      /**
      * Set template to itself
