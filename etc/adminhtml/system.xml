@@ -3,12 +3,12 @@
         <tab id="outeredge" translate="label" sortOrder="2000" class="outeredge-tab">
             <label>outer/edge</label>
         </tab>
-        <section id="sales" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+        <section id="lifetime_sales" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
             <class>separator-top</class>
             <label>Life Time Sales For Dashboad</label>
             <tab>outerEdge</tab>
             <resource>OuterEdge_LifetimeSalesForDashboard::sales_configuration</resource>
-            <group id="lifetime_sales" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+            <group id="config" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Dashboard Lifetime Sales Configuration</label>
                 <field id="enable" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enable</label>
@@ -31,7 +31,7 @@
                     <label>Logging</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="action" translate="label" type="button" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                <field id="action" translate="label" type="button" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <frontend_model>OuterEdge\LifetimeSalesForDashboard\Block\System\Config\Form\Button</frontend_model>
                 </field>
             </group>

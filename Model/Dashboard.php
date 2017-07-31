@@ -8,22 +8,22 @@ class Dashboard implements ObserverInterface
 {
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
-        if (!$this->scopeConfig->getValue('sales/lifetime_sales/enabled', \Magento\Store\Model\ScopeInterface::SCOPE_STORE)){
+        if (!$this->scopeConfig->getValue('lifetime_sales/config/enabled', \Magento\Store\Model\ScopeInterface::SCOPE_STORE)){
             return;
         }
 
-        $uid = $this->scopeConfig->getValue('sales/lifetime_sales/uid', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        $uid = $this->scopeConfig->getValue('lifetime_sales/config/uid', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
         if (!$uid){
             return;
         }
 
-        $url = $this->scopeConfig->getValue('sales/lifetime_sales/url', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        $url = $this->scopeConfig->getValue('lifetime_sales/config/url', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
         if (!$url){
             return;
         }
 
-        $username = $this->scopeConfig->getValue('sales/lifetime_sales/username', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
-        $password = $this->scopeConfig->getValue('sales/lifetime_sales/password', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        $username = $this->scopeConfig->getValue('lifetime_sales/config/username', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        $password = $this->scopeConfig->getValue('lifetime_sales/config/password', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
 
         $data = array(
             'uid' => $uid,
@@ -44,7 +44,7 @@ class Dashboard implements ObserverInterface
         
         if(curl_errno($ch)){
             $error = 'Curl error: ' . curl_error($ch);
-            $this->scopeConfig->getValue('sales/lifetime_sales/logging', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) ? Mage::log($error, null, 'dashboard.log') : false;
+            $this->scopeConfig->getValue('lifetime_sales/config/logging', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) ? Mage::log($error, null, 'dashboard.log') : false;
         }
         
         curl_close($ch);
