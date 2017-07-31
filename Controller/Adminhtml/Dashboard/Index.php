@@ -7,11 +7,11 @@ class Index extends \Magento\Backend\App\Action
     protected $dashboard;
 
     /**
-     * @param \Magento\Framework\App\Action\Context $context
+     * @param \Magento\Backend\App\Action\Context $context
      * @param \OuterEdge\LifetimeSalesForDashboard\Model\Dashboard $dashboard
      */
     public function __construct(
-        \Magento\Framework\App\Action\Context $context,
+        \Magento\Backend\App\Action\Context $context,
         \OuterEdge\LifetimeSalesForDashboard\Model\Dashboard $dashboard
     ) {
         $this->dashboard = $dashboard;
