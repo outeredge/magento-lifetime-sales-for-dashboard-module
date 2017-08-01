@@ -1,2 +1,2 @@
-outer/edge Magento Lifetimesalesfordashboard Module
+outer/edge Magento LifetimeSalesForDashboard Module
 ========================

@@ -1,6 +1,6 @@
 {
     "name": "outeredge/magento-lifetimesalesfordashboard-module",
-    "description": "Magento Lifetimesalesfordashboard Module by outer/edge",
+    "description": "Magento LifetimeSalesForDashboard Module by outer/edge",
     "type": "magento2-module",
     "license": [
         "OSL-3.0",
@@ -22,7 +22,7 @@
             "registration.php"
         ],
         "psr-4": {
-            "OuterEdge\\Lifetimesalesfordashboard\\": ""
+            "OuterEdge\\LifetimeSalesForDashboard\\": ""
         }
     }
 }
