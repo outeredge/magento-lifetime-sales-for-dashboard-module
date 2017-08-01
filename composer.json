@@ -1,6 +1,6 @@
 {
-    "name": "outeredge/magento-lifetimesalesfordashboard-module",
-    "description": "Magento LifetimeSalesForDashboard Module by outer/edge",
+    "name": "outeredge/magento-lifetime-sales-for-dashboard-module",
+    "description": "Magento Lifetime Sales For Dashboard Module by outer/edge",
     "type": "magento2-module",
     "license": [
         "OSL-3.0",
