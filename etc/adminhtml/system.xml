@@ -30,9 +30,7 @@
                 </field>
                 <field id="action" translate="label" type="button" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Refresh</label>                    
-                    <!---<frontend_model>OuterEdge\LifetimeSalesForDashboard\Block\System\Config\Form\Button</frontend_model>-->
-                    <!--<frontend_model>Magento\Customer\Block\Adminhtml\System\Config\Validatevat</frontend_model>-->
-                     <frontend_model>OuterEdge\LifetimeSalesForDashboard\Block\Adminhtml\System\Config\Button</frontend_model>
+                    <frontend_model>OuterEdge\LifetimeSalesForDashboard\Block\System\Config\Form\Button</frontend_model>
                 </field>            
             </group>
         </section>

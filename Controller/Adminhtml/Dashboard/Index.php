@@ -4,34 +4,37 @@ namespace OuterEdge\LifetimeSalesForDashboard\Controller\Adminhtml\Dashboard;
 
 class Index extends \Magento\Backend\App\Action 
 {
-    protected $dashboard;
+
+    protected $resultJsonFactory;
+    
+    protected $helper;
 
     /**
      * @param \Magento\Backend\App\Action\Context $context
-     * @param \OuterEdge\LifetimeSalesForDashboard\Model\Dashboard $dashboard
+     * @param \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory
+     * @param \OuterEdge\LifetimeSalesForDashboard\Helper\Data $helper
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
-        \OuterEdge\LifetimeSalesForDashboard\Model\Dashboard $dashboard
+        \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory,
+        \OuterEdge\LifetimeSalesForDashboard\Helper\Data $helper
     ) {
-        $this->dashboard = $dashboard;
-
+        
+        $this->resultJsonFactory = $resultJsonFactory;
+        $this->helper = $helper;
+        
         parent::__construct($context);
     }
 
-    public function execute(){
-        die("hello outeredge");
-        //TODO if works, call the model
-    }
-    
-    public function forceAction()
+    public function execute() 
     {
-        try {
-            $this->dashboard->sendLifetimeSales();
-            Mage::getSingleton('core/session')->addSuccess('Lifetime sales stats were successfully pushed to server.');
-        } catch (Exception $e){
-            Mage::getSingleton('core/session')->addError($e->getMessage());
-        }
-        $this->_redirectReferer();
+        $result = $this->helper->sendLifetimeSales();
+
+        /** @var \Magento\Framework\Controller\Result\Json $resultJson */
+        $resultJson = $this->resultJsonFactory->create();
+        return $resultJson->setData([
+            'valid' => (int)$result['valid'],
+            'message' => $result['message'],
+        ]);
     }
 }

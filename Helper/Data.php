@@ -1,25 +1,26 @@
 <?php
 
-namespace OuterEdge\LifetimeSalesForDashboard\Model;
+namespace OuterEdge\LifetimeSalesForDashboard\Helper;
 
-use Magento\Framework\Event\ObserverInterface;
-
-class Dashboard implements ObserverInterface
+class Data extends \Magento\Framework\App\Helper\AbstractHelper
 {
-    public function execute(\Magento\Framework\Event\Observer $observer)
-    {
-        if (!$this->scopeConfig->getValue('lifetime_sales/config/enabled', \Magento\Store\Model\ScopeInterface::SCOPE_STORE)){
-            return;
+    public function sendLifetimeSales()
+    {   
+        if (!$this->scopeConfig->getValue('lifetime_sales/config/enable', \Magento\Store\Model\ScopeInterface::SCOPE_STORE)){
+            return  ['valid' => false,
+                     'message' => __('Is disabled')];
         }
 
         $uid = $this->scopeConfig->getValue('lifetime_sales/config/uid', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
         if (!$uid){
-            return;
+            return  ['valid' => false,
+                     'message' => __('UID is empty')];
         }
 
         $url = $this->scopeConfig->getValue('lifetime_sales/config/url', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
         if (!$url){
-            return;
+            return  ['valid' => false,
+                     'message' => __('URL is empty')];
         }
 
         $username = $this->scopeConfig->getValue('lifetime_sales/config/username', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
@@ -45,8 +46,14 @@ class Dashboard implements ObserverInterface
         if(curl_errno($ch)){
             $error = 'Curl error: ' . curl_error($ch);
             $this->scopeConfig->getValue('lifetime_sales/config/logging', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) ? Mage::log($error, null, 'dashboard.log') : false;
+            return  ['valid' => false,
+                     'message' => $error];
         }
         
         curl_close($ch);
+        
+        return [
+            'valid' => true,
+            'message' => "Refresh stats completed"];
     }
 }

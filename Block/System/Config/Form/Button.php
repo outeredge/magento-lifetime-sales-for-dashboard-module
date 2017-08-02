@@ -1,8 +1,6 @@
 <?php
 namespace OuterEdge\LifetimeSalesForDashboard\Block\System\Config\Form;
  
-use Magento\Framework\App\Config\ScopeConfigInterface;
- 
 class Button extends \Magento\Config\Block\System\Config\Form\Field
 {
      const BUTTON_TEMPLATE = 'system/config/form/button.phtml';
@@ -32,15 +30,7 @@ class Button extends \Magento\Config\Block\System\Config\Form\Field
         $element->unsScope()->unsCanUseWebsiteValue()->unsCanUseDefaultValue();
         return parent::render($element);
     }
-    /**
-     * Return ajax url for button
-     *
-     * @return string
-     */
-    public function getAjaxCheckUrl()
-    {
-        return $this->getUrl('addbutton/listdata'); //hit controller by ajax call on button click.
-    }
+   
      /**
      * Get the button and scripts contents
      *
@@ -49,14 +39,14 @@ class Button extends \Magento\Config\Block\System\Config\Form\Field
      */
     protected function _getElementHtml(\Magento\Framework\Data\Form\Element\AbstractElement $element)
     {
-        //$originalData = $element->getOriginalData();
         $this->addData(
             [
-                'id'        => 'addbutton_button',
-                'button_label'     => _('Push Stats to Server'),
-                'onclick'   => 'javascript:check(); return false;'
+                'button_label' => ('Push Stats to Server'),
+                'html_id' => $element->getHtmlId(),
+                'ajax_url' => $this->_urlBuilder->getUrl('lifetimesalesfordashboard/dashboard/index'),
             ]
         );
+        
         return $this->_toHtml();
     }
 }
