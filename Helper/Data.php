@@ -2,34 +2,64 @@
 
 namespace OuterEdge\LifetimeSalesForDashboard\Helper;
 
-class Data extends \Magento\Framework\App\Helper\AbstractHelper
+use Magento\Framework\App\Helper\AbstractHelper;
+use Magento\Store\Model\ScopeInterface as Store;
+
+class Data extends AbstractHelper
 {
+    
+    protected $logFile = 'dashboard.log';
+    
+    /**
+     * @var \Magento\Sales\Model\ResourceModel\Sale\CollectionFactory
+     */
+    protected $_saleCollectionFactory;
+
+    /**
+     * @param \Magento\Framework\App\Helper\Context $context
+     * @param \Magento\Sales\Model\ResourceModel\Sale\CollectionFactory $saleCollectionFactory
+     */
+    public function __construct(
+        \Magento\Framework\App\Helper\Context $context,
+        \Magento\Sales\Model\ResourceModel\Sale\CollectionFactory $saleCollectionFactory
+    ) {
+        $this->_saleCollectionFactory = $saleCollectionFactory;
+        
+        parent::__construct($context);
+    }
+    
     public function sendLifetimeSales()
     {   
-        if (!$this->scopeConfig->getValue('lifetime_sales/config/enable', \Magento\Store\Model\ScopeInterface::SCOPE_STORE)){
+        if (!$this->scopeConfig->getValue('lifetime_sales/config/enable', Store::SCOPE_STORE)){
             return  ['valid' => false,
                      'message' => __('Is disabled')];
         }
 
-        $uid = $this->scopeConfig->getValue('lifetime_sales/config/uid', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        $uid = $this->scopeConfig->getValue('lifetime_sales/config/uid', Store::SCOPE_STORE);
         if (!$uid){
             return  ['valid' => false,
                      'message' => __('UID is empty')];
         }
 
-        $url = $this->scopeConfig->getValue('lifetime_sales/config/url', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        $url = $this->scopeConfig->getValue('lifetime_sales/config/url', Store::SCOPE_STORE);
         if (!$url){
             return  ['valid' => false,
                      'message' => __('URL is empty')];
         }
 
-        $username = $this->scopeConfig->getValue('lifetime_sales/config/username', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
-        $password = $this->scopeConfig->getValue('lifetime_sales/config/password', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
-
+        $username = $this->scopeConfig->getValue('lifetime_sales/config/username', Store::SCOPE_STORE);
+        $password = $this->scopeConfig->getValue('lifetime_sales/config/password', Store::SCOPE_STORE);
+        
+        //Get Sale LifeTime 
+        $saleModel = $this->_saleCollectionFactory
+            ->create()
+            ->addFieldToFilter('status', array('in' => array(\Magento\Sales\Model\Order::STATE_PROCESSING, \Magento\Sales\Model\Order::STATE_COMPLETE)))
+            ->setOrderStateFilter(\Magento\Sales\Model\Order::STATE_CANCELED, true)
+            ->load();    
+                
         $data = array(
             'uid' => $uid,
-            'lifetime_sales' => $this->scopeConfig->getValue('reports/order_collection', \Magento\Store\Model\ScopeInterface::SCOPE_STORE)
-                ->calculateSales()->load()->getFirstItem()->getLifetime()
+            'lifetime_sales' => $saleModel->getTotals()->getLifetime()
         );
         
         $ch = curl_init();
@@ -45,7 +75,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         
         if(curl_errno($ch)){
             $error = 'Curl error: ' . curl_error($ch);
-            $this->scopeConfig->getValue('lifetime_sales/config/logging', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) ? Mage::log($error, null, 'dashboard.log') : false;
+            $this->scopeConfig->getValue('lifetime_sales/config/logging', Store::SCOPE_STORE) ? Mage::log($error, null, $this->logFile) : false;
             return  ['valid' => false,
                      'message' => $error];
         }

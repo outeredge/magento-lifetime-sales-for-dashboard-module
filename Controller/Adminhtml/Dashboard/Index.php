@@ -32,6 +32,7 @@ class Index extends \Magento\Backend\App\Action
 
         /** @var \Magento\Framework\Controller\Result\Json $resultJson */
         $resultJson = $this->resultJsonFactory->create();
+        
         return $resultJson->setData([
             'valid' => (int)$result['valid'],
             'message' => $result['message'],
