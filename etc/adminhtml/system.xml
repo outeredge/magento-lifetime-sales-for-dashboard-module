@@ -10,19 +10,23 @@
                 <field id="enable" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enable</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>When enabled this module will anonymously send lifetime sales stats to a specific url.</comment>
                 </field>
                 <field id="uid" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Unique ID</label>
-                    <comment>This text will be used later.</comment>
+                    <comment>Unique identifier assigned to this company.</comment>
                 </field>
                 <field id="url" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Url</label>
+                    <comment>URL which the data will be posted to.</comment>
                 </field>
                 <field id="username" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Username</label>
+                    <comment>Username sent to server for authentication.</comment>
                 </field>
                 <field id="password" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Password</label>
+                    <comment>Password sent to server for authentication.</comment>
                 </field>
                 <field id="logging" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Logging</label>
