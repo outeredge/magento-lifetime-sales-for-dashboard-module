@@ -18,7 +18,8 @@
     },
     "require-dev": {
         "magento-ecg/coding-standard": "~3.0",
-        "outeredge/coding-standards": "~1.0.0"
+        "outeredge/coding-standards": "~1.0.0",
+        "squizlabs/php_codesniffer": "^3.0"
     },
     "autoload": {
         "files": [
