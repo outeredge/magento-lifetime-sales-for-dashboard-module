@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<ruleset name="outer/edge Magento coding standard">
+    <config name="installed_paths" value="vendor/magento-ecg/coding-standard" />
+
+    <arg value="p"/>
+    <arg name="colors"/>
+    <arg name="extensions" value="php" />
+
+    <rule ref="EcgM2" />
+
+    <exclude-pattern type="relative">vendor/*</exclude-pattern>
+</ruleset>
