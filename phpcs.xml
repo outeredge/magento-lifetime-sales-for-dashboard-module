@@ -9,7 +9,7 @@
     <rule ref="EcgM2"/>
 
     <rule ref="OuterEdge">
-        <exclude name="PSR2.Classes.PropertyDeclaration.Underscore" />
+        <exclude name="PSR2.Classes.PropertyDeclaration.Underscore"/>
     </rule>
 
     <exclude-pattern type="relative">vendor/*</exclude-pattern>
