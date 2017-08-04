@@ -7,8 +7,8 @@
     <arg name="colors"/>
     <arg name="extensions" value="php"/>
 
-    <rule ref="EcgM2" />
-    <rule ref="OuterEdge" />
+    <rule ref="EcgM2"/>
+    <rule ref="OuterEdge"/>
 
     <exclude-pattern type="relative">vendor/*</exclude-pattern>
 </ruleset>
