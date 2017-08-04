@@ -2,10 +2,7 @@ language: php
 php:
   - 7.0
   - 7.1
-directories:
-  - $HOME/.composer/cache/files
-  - $HOME/.config/composer
-install: composer global require "squizlabs/php_codesniffer=*" --no-interaction --prefer-source
+install: composer global require "squizlabs/php_codesniffer=*" --no-interaction --prefer-dist
 script:
-  - composer install --no-interaction --prefer-source
+  - composer install --no-interaction --prefer-dist
   - ~/.config/composer/vendor/bin/phpcs .
