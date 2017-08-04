@@ -1,6 +1,8 @@
 <?php
 namespace OuterEdge\LifetimeSalesForDashboard\Block\System\Config\Form;
  
+use Magento\Framework\Data\Form\Element\AbstractElement;
+
 class Button extends \Magento\Config\Block\System\Config\Form\Field
 {
      const BUTTON_TEMPLATE = 'system/config/form/button.phtml';
@@ -21,10 +23,10 @@ class Button extends \Magento\Config\Block\System\Config\Form\Field
     /**
      * Render button
      *
-     * @param  \Magento\Framework\Data\Form\Element\AbstractElement $element
+     * @param  AbstractElement $element
      * @return string
      */
-    public function render(\Magento\Framework\Data\Form\Element\AbstractElement $element)
+    public function render(AbstractElement $element)
     {
         // Remove scope label
         $element->unsScope()->unsCanUseWebsiteValue()->unsCanUseDefaultValue();
@@ -34,16 +36,17 @@ class Button extends \Magento\Config\Block\System\Config\Form\Field
      /**
      * Get the button and scripts contents
      *
-     * @param \Magento\Framework\Data\Form\Element\AbstractElement $element
+     * @param AbstractElement $element
      * @return string
      */
-    protected function _getElementHtml(\Magento\Framework\Data\Form\Element\AbstractElement $element)
+    protected function _getElementHtml(AbstractElement $element)
     {
         $this->addData(
             [
                 'button_label' => ('Push Stats to Server'),
                 'html_id' => $element->getHtmlId(),
-                'ajax_url' => $this->_urlBuilder->getUrl('lifetimesalesfordashboard/dashboard/index'),
+                'ajax_url' => $this->_urlBuilder
+                    ->getUrl('lifetimesalesfordashboard/dashboard/index'),
             ]
         );
         

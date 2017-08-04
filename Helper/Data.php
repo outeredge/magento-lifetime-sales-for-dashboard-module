@@ -16,7 +16,7 @@ class Data extends AbstractHelper
     protected $_saleCollectionFactory;
 
     /**
-     * @param \Magento\Framework\App\Helper\Context $context
+     * @param \Magento\Framework\App\Helper\Context                     $context
      * @param \Magento\Sales\Model\ResourceModel\Sale\CollectionFactory $saleCollectionFactory
      */
     public function __construct(
@@ -29,20 +29,20 @@ class Data extends AbstractHelper
     }
     
     public function sendLifetimeSales()
-    {   
-        if (!$this->scopeConfig->getValue('lifetime_sales/config/enable', Store::SCOPE_STORE)){
+    {
+        if (!$this->scopeConfig->getValue('lifetime_sales/config/enable', Store::SCOPE_STORE)) {
             return  ['valid' => false,
                      'message' => __('Is disabled')];
         }
 
         $uid = $this->scopeConfig->getValue('lifetime_sales/config/uid', Store::SCOPE_STORE);
-        if (!$uid){
+        if (!$uid) {
             return  ['valid' => false,
                      'message' => __('UID is empty')];
         }
 
         $url = $this->scopeConfig->getValue('lifetime_sales/config/url', Store::SCOPE_STORE);
-        if (!$url){
+        if (!$url) {
             return  ['valid' => false,
                      'message' => __('URL is empty')];
         }
@@ -73,7 +73,7 @@ class Data extends AbstractHelper
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
         curl_exec($ch);
         
-        if(curl_errno($ch)){
+        if (curl_errno($ch)) {
             $error = 'Curl error: ' . curl_error($ch);
             $this->scopeConfig->getValue('lifetime_sales/config/logging', Store::SCOPE_STORE) ? Mage::log($error, null, $this->logFile) : false;
             return  ['valid' => false,
