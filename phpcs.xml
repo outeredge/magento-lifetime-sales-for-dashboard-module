@@ -1,12 +1,14 @@
 <?xml version="1.0"?>
 <ruleset name="outer/edge Magento coding standard">
-    <config name="installed_paths" value="vendor/magento-ecg/coding-standard" />
+    <config name="installed_paths" value="vendor/magento-ecg/coding-standard"/>
+    <config name="installed_paths" value="vendor/outeredge/coding-standards"/>
 
     <arg value="p"/>
     <arg name="colors"/>
-    <arg name="extensions" value="php" />
+    <arg name="extensions" value="php"/>
 
     <rule ref="EcgM2" />
+    <rule ref="OuterEdge" />
 
     <exclude-pattern type="relative">vendor/*</exclude-pattern>
 </ruleset>
