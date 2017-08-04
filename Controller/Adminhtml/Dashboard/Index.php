@@ -2,22 +2,32 @@
 
 namespace OuterEdge\LifetimeSalesForDashboard\Controller\Adminhtml\Dashboard;
 
-class Index extends \Magento\Backend\App\Action
-{
+use Magento\Backend\App\Action;
+use Magento\Backend\App\Action\Context;
+use Magento\Framework\Controller\Result\JsonFactory;
+use OuterEdge\LifetimeSalesForDashboard\Helper\Data;
 
+class Index extends Action
+{
+    /**
+     * @var JsonFactory $resultJsonFactory
+     */
     protected $resultJsonFactory;
     
+    /**
+     * @var Data $helper
+     */
     protected $helper;
 
     /**
-     * @param \Magento\Backend\App\Action\Context              $context
-     * @param \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory
-     * @param \OuterEdge\LifetimeSalesForDashboard\Helper\Data $helper
+     * @param Context     $context
+     * @param JsonFactory $resultJsonFactory
+     * @param Data        $helper
      */
     public function __construct(
-        \Magento\Backend\App\Action\Context $context,
-        \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory,
-        \OuterEdge\LifetimeSalesForDashboard\Helper\Data $helper
+        Context $context,
+        JsonFactory $resultJsonFactory,
+        Data $helper
     ) {
         
         $this->resultJsonFactory = $resultJsonFactory;
@@ -26,6 +36,10 @@ class Index extends \Magento\Backend\App\Action
         parent::__construct($context);
     }
 
+    /**
+     * 
+     * @return type
+     */
     public function execute() 
     {
         $result = $this->helper->sendLifetimeSales();

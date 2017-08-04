@@ -2,10 +2,11 @@
 namespace OuterEdge\LifetimeSalesForDashboard\Block\System\Config\Form;
  
 use Magento\Framework\Data\Form\Element\AbstractElement;
+use Magento\Config\Block\System\Config\Form\Field;
 
-class Button extends \Magento\Config\Block\System\Config\Form\Field
+class Button extends Field
 {
-     const BUTTON_TEMPLATE = 'system/config/form/button.phtml';
+    const BUTTON_TEMPLATE = 'system/config/form/button.phtml';
  
      /**
      * Set template to itself
@@ -20,15 +21,16 @@ class Button extends \Magento\Config\Block\System\Config\Form\Field
         }
         return $this;
     }
+    
     /**
      * Render button
      *
-     * @param  AbstractElement $element
+     * @param AbstractElement $element
+     * 
      * @return string
      */
     public function render(AbstractElement $element)
     {
-        // Remove scope label
         $element->unsScope()->unsCanUseWebsiteValue()->unsCanUseDefaultValue();
         return parent::render($element);
     }
@@ -37,6 +39,7 @@ class Button extends \Magento\Config\Block\System\Config\Form\Field
      * Get the button and scripts contents
      *
      * @param AbstractElement $element
+      * 
      * @return string
      */
     protected function _getElementHtml(AbstractElement $element)

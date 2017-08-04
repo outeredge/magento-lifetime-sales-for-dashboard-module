@@ -2,28 +2,31 @@
 
 namespace OuterEdge\LifetimeSalesForDashboard\Cron;
  
+use OuterEdge\LifetimeSalesForDashboard\Helper\Data;
+use Magento\Cron\Model\Schedule;
+
 class RefreshStats
 {
     /**
-     * @var \OuterEdge\LifetimeSalesForDashboard\Helper\Data
+     * @var Data
      */
-    protected $_helper;
+    protected $helper;
  
     /**
-     * @param \OuterEdge\LifetimeSalesForDashboard\Helper\Data $helper
+     * @param Data $helper
      */
     public function __construct(
-        \OuterEdge\LifetimeSalesForDashboard\Helper\Data $helper
+        Data $helper
     ) {
-        $this->_helper = $helper;
+        $this->helper = $helper;
     }
  
     /**
-     * @param \Magento\Cron\Model\Schedule $schedule
+     * @param Schedule $schedule
      * @return void
      */
-    public function execute(\Magento\Cron\Model\Schedule $schedule)
+    public function execute(Schedule $schedule)
     {
-        $this->_helper->sendLifetimeSales();
+        $this->helper->sendLifetimeSales();
     }
 }
