@@ -5,4 +5,5 @@ php:
   - 7.1
 install: composer global require "squizlabs/php_codesniffer=*" --no-interaction --prefer-source
 script:
-  - ~/.composer/vendor/bin/phpcs .
+  - ls ~/.config/composer
+  - ~/.config/composer/bin/phpcs .
