@@ -7,8 +7,9 @@
     <arg name="extensions" value="php"/>
 
     <rule ref="EcgM2"/>
-
     <rule ref="OuterEdge">
+
+    <rule ref="PSR2">
         <exclude name="PSR2.Classes.PropertyDeclaration.Underscore"/>
     </rule>
 
