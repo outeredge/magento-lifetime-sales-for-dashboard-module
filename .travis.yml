@@ -1,8 +1,10 @@
 language: php
 php:
-  - 5.6
   - 7.0
   - 7.1
+directories:
+  - $HOME/.composer/cache
+  - $HOME/.config/composer
 install: composer global require "squizlabs/php_codesniffer=*" --no-interaction --prefer-source
 script:
   - composer install --no-interaction --prefer-source
