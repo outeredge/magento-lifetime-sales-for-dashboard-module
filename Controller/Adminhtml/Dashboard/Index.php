@@ -26,10 +26,6 @@ class Index extends Action
         parent::__construct($context);
     }
 
-    /**
-     *
-     * @return type
-     */
     public function execute()
     {
         return $this->helper->sendLifetimeSales();
