@@ -37,15 +37,15 @@ class Index extends Action
     }
 
     /**
-     * 
+     *
      * @return type
      */
-    public function execute() 
+    public function execute()
     {
         $result = $this->helper->sendLifetimeSales();
 
         /**
-         * @var \Magento\Framework\Controller\Result\Json $resultJson 
+         * @var \Magento\Framework\Controller\Result\Json $resultJson
          */
         $resultJson = $this->resultJsonFactory->create();
         

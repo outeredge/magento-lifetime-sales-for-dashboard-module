@@ -3,7 +3,6 @@
 namespace OuterEdge\LifetimeSalesForDashboard\Cron;
  
 use OuterEdge\LifetimeSalesForDashboard\Helper\Data;
-use Magento\Cron\Model\Schedule;
 
 class RefreshStats
 {
@@ -22,10 +21,9 @@ class RefreshStats
     }
  
     /**
-     * @param Schedule $schedule
      * @return void
      */
-    public function execute(Schedule $schedule)
+    public function execute()
     {
         $this->helper->sendLifetimeSales();
     }

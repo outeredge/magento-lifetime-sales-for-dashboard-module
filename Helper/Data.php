@@ -6,11 +6,12 @@ use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Store\Model\ScopeInterface as Store;
 use Magento\Sales\Model\ResourceModel\Sale\CollectionFactory;
 use Magento\Framework\App\Helper\Context;
+use Magento\Framework\HTTP\Client\Curl;
 
 class Data extends AbstractHelper
 {
     /**
-     * @var string 
+     * @var string
      */
     protected $logFile = 'dashboard.log';
     
@@ -18,16 +19,24 @@ class Data extends AbstractHelper
      * @var CollectionFactory
      */
     protected $saleCollectionFactory;
+    
+    /**
+    * @var Curl
+    */
+    protected $curlClient;
 
     /**
      * @param Context           $context
      * @param CollectionFactory $saleCollectionFactory
+     * @param Curl              $curl
      */
     public function __construct(
         Context           $context,
-        CollectionFactory $saleCollectionFactory
+        CollectionFactory $saleCollectionFactory,
+        Curl              $curl
     ) {
         $this->saleCollectionFactory = $saleCollectionFactory;
+        $this->curlClient            = $curl;
         
         parent::__construct($context);
     }
@@ -38,7 +47,7 @@ class Data extends AbstractHelper
     public function sendLifetimeSales()
     {
         if (!$this->scopeConfig->getValue(
-            'lifetime_sales/config/enable', 
+            'lifetime_sales/config/enable',
             Store::SCOPE_STORE
         )) {
             return  ['valid' => false,
@@ -46,7 +55,7 @@ class Data extends AbstractHelper
         }
 
         $uid = $this->scopeConfig->getValue(
-            'lifetime_sales/config/uid', 
+            'lifetime_sales/config/uid',
             Store::SCOPE_STORE
         );
         if (!$uid) {
@@ -55,7 +64,7 @@ class Data extends AbstractHelper
         }
 
         $url = $this->scopeConfig->getValue(
-            'lifetime_sales/config/url', 
+            'lifetime_sales/config/url',
             Store::SCOPE_STORE
         );
         if (!$url) {
@@ -64,57 +73,47 @@ class Data extends AbstractHelper
         }
 
         $username = $this->scopeConfig->getValue(
-            'lifetime_sales/config/username', 
+            'lifetime_sales/config/username',
             Store::SCOPE_STORE
         );
         $password = $this->scopeConfig->getValue(
-            'lifetime_sales/config/password', 
+            'lifetime_sales/config/password',
             Store::SCOPE_STORE
         );
         
-        //Get Sale LifeTime 
+        //Get Sale LifeTime
         $saleModel = $this->saleCollectionFactory
             ->create()
             ->addFieldToFilter(
-                'status', array(
-                'in' => array(
-                    \Magento\Sales\Model\Order::STATE_PROCESSING, 
+                'status',
+                [
+                'in' => [
+                    \Magento\Sales\Model\Order::STATE_PROCESSING,
                     \Magento\Sales\Model\Order::STATE_COMPLETE
-                ))
+                ]]
             )
             ->setOrderStateFilter(\Magento\Sales\Model\Order::STATE_CANCELED, true)
-            ->load();    
+            ->load();
                 
-                $data = array(
-                'uid' => $uid,
-                'lifetime_sales' => $saleModel->getTotals()->getLifetime()
-                );
+        $data = [
+            'uid' => $uid,
+            'lifetime_sales' => $saleModel->getTotals()->getLifetime()
+        ];
         
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_FAILONERROR, true);
-                curl_setopt($ch, CURLOPT_URL, $url);
-                curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
-                curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-                curl_setopt($ch, CURLOPT_POST, 1);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-                curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-                curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
-                curl_exec($ch);
         
-                if (curl_errno($ch)) {
-                    $error = 'Curl error: ' . curl_error($ch);
-                    $this->scopeConfig->getValue(
-                        'lifetime_sales/config/logging', 
-                        Store::SCOPE_STORE
-                    ) ? Mage::log($error, null, $this->logFile) : false;
-                    return  ['valid' => false,
-                     'message' => $error];
-                }
-        
-                curl_close($ch);
-        
-                return [
-                'valid' => true,
-                'message' => "Refresh stats completed"];
+        $this->curlClient->setCredentials($username, $password);
+        try {
+            $this->curlClient->post($url, $data);
+            if ($this->curlClient->getStatus() == 200) {
+                return \Zend_Json::encode(['valid' => true, 'message' => 'Refresh stats completed']);
+            } else {
+                return \Zend_Json::encode(['valid' => false, 'message' => 'Bad credentials']);
+            }
+        } catch (\Exception $e) {
+            if ($this->scopeConfig->getValue('lifetime_sales/config/logging', Store::SCOPE_STORE)) {
+                Mage::log('Curl error: '.$e->getMessage(), null, $this->logFile);
+            }
+            return \Zend_Json::encode(['valid' => false, 'message' => $e->getMessage()]);
+        }
     }
 }

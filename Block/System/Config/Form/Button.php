@@ -26,7 +26,7 @@ class Button extends Field
      * Render button
      *
      * @param AbstractElement $element
-     * 
+     *
      * @return string
      */
     public function render(AbstractElement $element)
@@ -39,7 +39,7 @@ class Button extends Field
      * Get the button and scripts contents
      *
      * @param AbstractElement $element
-      * 
+     *
      * @return string
      */
     protected function _getElementHtml(AbstractElement $element)
