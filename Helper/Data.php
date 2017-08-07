@@ -9,7 +9,7 @@ use Magento\Framework\App\Helper\Context;
 use Magento\Framework\HTTP\Client\Curl;
 
 class Data extends AbstractHelper
-{ 
+{
     /**
      * @var CollectionFactory
      */
@@ -37,7 +37,7 @@ class Data extends AbstractHelper
     }
     
     /**
-     * @return type
+     * @return Zend_Json
      */
     public function sendLifetimeSales()
     {
@@ -99,12 +99,12 @@ class Data extends AbstractHelper
         try {
             $this->curlClient->post($url, $data);
             if ($this->curlClient->getStatus() == 200) {
-                return \Zend_Json::encode(['valid' => true, 'message' => 'Refresh stats completed']);
+                return ['valid' => true, 'message' => 'Refresh stats completed'];
             } else {
-                return \Zend_Json::encode(['valid' => false, 'message' => 'Bad credentials']);
+                return ['valid' => false, 'message' => 'Bad credentials'];
             }
         } catch (\Exception $e) {
-            return \Zend_Json::encode(['valid' => false, 'message' => $e->getMessage()]);
+            return ['valid' => false, 'message' => $e->getMessage()];
         }
     }
 }
