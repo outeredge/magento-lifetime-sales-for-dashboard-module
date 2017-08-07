@@ -9,12 +9,7 @@ use Magento\Framework\App\Helper\Context;
 use Magento\Framework\HTTP\Client\Curl;
 
 class Data extends AbstractHelper
-{
-    /**
-     * @var string
-     */
-    protected $logFile = 'dashboard.log';
-    
+{ 
     /**
      * @var CollectionFactory
      */
@@ -100,7 +95,6 @@ class Data extends AbstractHelper
             'lifetime_sales' => $saleModel->getTotals()->getLifetime()
         ];
         
-        
         $this->curlClient->setCredentials($username, $password);
         try {
             $this->curlClient->post($url, $data);
@@ -110,9 +104,6 @@ class Data extends AbstractHelper
                 return \Zend_Json::encode(['valid' => false, 'message' => 'Bad credentials']);
             }
         } catch (\Exception $e) {
-            if ($this->scopeConfig->getValue('lifetime_sales/config/logging', Store::SCOPE_STORE)) {
-                Mage::log('Curl error: '.$e->getMessage(), null, $this->logFile);
-            }
             return \Zend_Json::encode(['valid' => false, 'message' => $e->getMessage()]);
         }
     }
