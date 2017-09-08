@@ -34,7 +34,7 @@ class Edge_LifetimeSalesForDashboard_Model_Report
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
         curl_exec($ch);
         
         if(curl_errno($ch)){
